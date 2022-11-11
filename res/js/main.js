@@ -51,7 +51,33 @@ const keys = {
 function animation() {
   requestAnimationFrame(animation);
   player.update();
-  if (keys.left.pressed) {
+  switch (keys.pressed=true) {
+    case keys.up.pressed:
+      player.position.y = player.position.y - 5;
+      keys.down.pressed = false;
+      keys.left.pressed = false;
+      keys.right.pressed = false;
+      break;
+    case keys.left.pressed:
+      player.position.x = player.position.x - 5;
+      keys.up.pressed = false;
+      keys.right.pressed = false;
+      keys.down.pressed = false;
+      break;
+    case keys.down.pressed:
+      player.position.y = player.position.y + 5;
+      keys.up.pressed = false;
+      keys.left.pressed = false;
+      keys.right.pressed = false;
+      break;
+    case keys.right.pressed:
+      player.position.x = player.position.x + 5;
+      keys.left.pressed = false;
+      keys.up.pressed = false;
+      keys.down.pressed = false;
+  }
+
+  /*if (keys.left.pressed) {
     console.log("move to left");
     player.position.x = player.position.x - 5;
     keys.up.pressed = false;
@@ -86,9 +112,9 @@ function animation() {
   console.log("DOWN " + keys.down.pressed);
   console.log("UP " + keys.up.pressed);
   console.log("LEFT " + keys.left.pressed);
-  console.log("RIGHT " + keys.right.pressed);
+  console.log("RIGHT " + keys.right.pressed);*/
 }
-animation();
+
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
@@ -105,6 +131,8 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
   }
 });
+animation();
+
 /*addEventListener("keyup", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
