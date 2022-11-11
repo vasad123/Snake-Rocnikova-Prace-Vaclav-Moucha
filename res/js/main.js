@@ -5,7 +5,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1380;
 canvas.height = window.innerHeight;
-
+let direction;
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
@@ -53,22 +53,24 @@ function animation() {
   if (keys.left.pressed) {
     console.log("move to left");
     player.position.x = player.position.x - 5;
+    direction = left;
   }
   if (keys.up.pressed) {
     console.log("move up");
     player.position.y = player.position.y - 5;
+    direction=up;
   }
   if (keys.down.pressed) {
     player.position.y = player.position.y + 5;
     console.log("move down");
+    direction = down;
   }
   if (keys.right.pressed) {
     console.log("move to right");
     player.position.x = player.position.x + 5;
+    direction = right;
   }
-/*if(keys.left.pressed&&player.position.x==113.5){
-  player.position.x=1493.5;
-}*/
+
 }
 animation();
 addEventListener("keydown", ({ keyCode }) => {
