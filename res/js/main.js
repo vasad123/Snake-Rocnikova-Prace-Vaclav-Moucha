@@ -27,7 +27,6 @@ class myPlayer {
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
   update() {
-    
     this.draw();
   }
 }
@@ -54,45 +53,49 @@ function animation() {
   if (keys.left.pressed) {
     console.log("move to left");
     player.position.x = player.position.x - 5;
-    keys.up.pressed = false;
-    keys.right.pressed = false;
-    keys.down.pressed = false;
   }
   if (keys.up.pressed) {
-    keys.down.pressed = false;
-    keys.left.pressed = false;
-    keys.right.pressed = false;
     console.log("move up");
     player.position.y = player.position.y - 5;
   }
   if (keys.down.pressed) {
     player.position.y = player.position.y + 5;
     console.log("move down");
-    keys.up.pressed = false;
-    keys.left.pressed = false;
-    keys.right.pressed = false;
   }
   if (keys.right.pressed) {
     console.log("move to right");
     player.position.x = player.position.x + 5;
-    keys.left.pressed = false;
-    keys.up.pressed = false;
-    keys.down.pressed = false;
   }
+/*if(keys.left.pressed&&player.position.x==113.5){
+  player.position.x=1493.5;
+}*/
 }
 animation();
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
       keys.left.pressed = true;
+      keys.up.pressed = false;
+      keys.right.pressed = false;
+      keys.down.pressed = false;
+
       break;
     case 68:
       keys.right.pressed = true;
+      keys.left.pressed = false;
+      keys.up.pressed = false;
+      keys.down.pressed = false;
       break;
     case 87:
       keys.up.pressed = true;
+      keys.down.pressed = false;
+      keys.left.pressed = false;
+      keys.right.pressed = false;
       break;
     case 83:
       keys.down.pressed = true;
+      keys.up.pressed = false;
+      keys.left.pressed = false;
+      keys.right.pressed = false;
   }
 });
