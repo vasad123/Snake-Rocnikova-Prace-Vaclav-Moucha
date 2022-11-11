@@ -27,7 +27,6 @@ class myPlayer {
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
   update() {
-
     this.draw();
     console.log("Update");
   }
