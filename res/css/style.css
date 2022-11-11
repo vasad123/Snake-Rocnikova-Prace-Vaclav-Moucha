@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
- background-color: rgb(95, 253, 95);
+    background-color: rgb(0, 255, 0);
 }
 
 header {
@@ -32,13 +32,13 @@ button {
     margin: auto;
     outline: none;
     border: none;
-    transition:.3s;
+    transition: .3s;
 }
 
 button:hover {
-    scale:1.3;
-    cursor:pointer;
-  
+    scale: 1.3;
+    cursor: pointer;
+
 
 }
 
@@ -51,18 +51,19 @@ button:hover {
 
 }
 
-#canvas{
-    display:none;
+#canvas {
+    display: none;
     object-fit: contain;
 
-  max-height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color:whitesmoke;
+    max-height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
 
-  
+
 }
-#wrapper2{
+
+#wrapper2 {
 
     display: flex;
     justify-content: center;
