@@ -5,7 +5,12 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1380;
 canvas.height = window.innerHeight;
-let direction = 0;
+const direction = {
+  left: 1,
+  right: 2,
+  up: 3,
+  down: 4,
+};
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";

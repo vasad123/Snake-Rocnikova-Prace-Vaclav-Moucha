@@ -53,8 +53,6 @@ button:hover {
 
 #canvas {
     display: none;
-    object-fit: contain;
-
     max-height: 100%;
     align-items: center;
     justify-content: center;
