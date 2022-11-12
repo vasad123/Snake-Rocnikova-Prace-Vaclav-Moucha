@@ -5,7 +5,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1380;
 canvas.height = window.innerHeight;
-let direction;
+let direction = 0;
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
@@ -28,7 +28,6 @@ class myPlayer {
   }
   update() {
     this.draw();
-    console.log("Update");
   }
 }
 
@@ -51,21 +50,31 @@ const keys = {
 function animation() {
   requestAnimationFrame(animation);
   player.update();
+
   if (keys.left.pressed) {
     player.position.x = player.position.x - 5;
-    direction = left;
+    direction = 1;
   }
   if (keys.up.pressed) {
     player.position.y = player.position.y - 5;
-    direction = up;
+    direction = 2;
   }
   if (keys.down.pressed) {
     player.position.y = player.position.y + 5;
-    direction = down;
+    direction = 3;
   }
   if (keys.right.pressed) {
     player.position.x = player.position.x + 5;
-    direction = right;
+    direction = 4;
+  }
+  if (player.position.x >= canvas.width) {
+    player.position.x = 0;
+  } else if (player.position.x < 0) {
+    player.position.x = canvas.width;
+  } else if (player.position.y >= canvas.height) {
+    player.position.y = 0;
+  } else if (player.position.y < 0) {
+    player.position.y = window.innerHeight;
   }
 }
 
