@@ -54,6 +54,7 @@ const keys = {
 
 function animation() {
   requestAnimationFrame(animation);
+ 
   player.update();
 
   if (keys.left.pressed) {
