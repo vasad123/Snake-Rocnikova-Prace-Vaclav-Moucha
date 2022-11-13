@@ -3,6 +3,7 @@ const wrapper = document.getElementById("wrapper");
 const footer = document.getElementById("footer");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+let startMenuOff = false;
 canvas.width = 1380;
 canvas.height = window.innerHeight;
 const currentDirection = {
@@ -15,6 +16,7 @@ mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
+  startMenuOff=true;
 };
 class myPlayer {
   constructor() {
@@ -35,6 +37,7 @@ class myPlayer {
     this.draw();
   }
 }
+
 const player = new myPlayer();
 const keys = {
   right: {
@@ -56,21 +59,21 @@ function animation() {
 
   player.update();
 
-  if (keys.left.pressed) {
+  if (keys.left.pressed&&startMenuOff==true) {
     player.position.x = player.position.x - 5;
-    direction = 1;
+    currentDirection = 1;
   }
-  if (keys.up.pressed) {
+  if (keys.up.pressed&&startMenuOff==true) {
     player.position.y = player.position.y - 5;
-    direction = 2;
+    currentDirection = 2;
   }
-  if (keys.down.pressed) {
+  if (keys.down.pressed&&startMenuOff==true) {
     player.position.y = player.position.y + 5;
-    direction = 3;
+    currentDirection = 3;
   }
-  if (keys.right.pressed) {
+  if (keys.right.pressed&&startMenuOff==true) {
     player.position.x = player.position.x + 5;
-    direction = 4;
+    currentDirection = 4;
   }
   if (player.position.x >= canvas.width) {
     player.position.x = 0;
@@ -106,7 +109,6 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
     case 83:
       keys.down.pressed = true;
-
       keys.up.pressed = false;
       keys.left.pressed = false;
       keys.right.pressed = false;
