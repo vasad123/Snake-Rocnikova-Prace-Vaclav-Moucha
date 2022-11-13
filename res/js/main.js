@@ -5,11 +5,11 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 1380;
 canvas.height = window.innerHeight;
-const direction = {
-  left: 1,
-  right: 2,
-  up: 3,
-  down: 4,
+const currentDirection = {
+  directionLeft: 1,
+  directionRight: 2,
+  directionUp: 3,
+  directionDown: 4,
 };
 mybutton.onclick = () => {
   wrapper.style.display = "none";
@@ -35,7 +35,6 @@ class myPlayer {
     this.draw();
   }
 }
-
 const player = new myPlayer();
 const keys = {
   right: {
@@ -54,7 +53,7 @@ const keys = {
 
 function animation() {
   requestAnimationFrame(animation);
- 
+
   player.update();
 
   if (keys.left.pressed) {
