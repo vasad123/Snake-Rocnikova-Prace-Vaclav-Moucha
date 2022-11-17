@@ -37,7 +37,27 @@ class myPlayer {
     this.draw();
   }
 }
+class Fruit {
+  constructor() {
+    this.position = {
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+    };
 
+    this.width = 30;
+    this.height = 30;
+  }
+
+  draw() {
+    ctx.fillStyle = "red ";
+    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+  update() {
+    this.draw();
+  }
+}
+const fruit = new Fruit();
+fruit.update();
 const player = new myPlayer();
 const keys = {
   right: {
@@ -59,19 +79,19 @@ function animation() {
 
   player.update();
 
-  if (keys.left.pressed&&startMenuOff==true) {
+  if (keys.left.pressed) {
     player.position.x = player.position.x - 5;
     currentDirection = 1;
   }
-  if (keys.up.pressed&&startMenuOff==true) {
+  if (keys.up.pressed) {
     player.position.y = player.position.y - 5;
     currentDirection = 2;
   }
-  if (keys.down.pressed&&startMenuOff==true) {
+  if (keys.down.pressed) {
     player.position.y = player.position.y + 5;
     currentDirection = 3;
   }
-  if (keys.right.pressed&&startMenuOff==true) {
+  if (keys.right.pressed) {
     player.position.x = player.position.x + 5;
     currentDirection = 4;
   }
