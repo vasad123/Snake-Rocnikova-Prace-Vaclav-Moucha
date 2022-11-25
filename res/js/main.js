@@ -6,17 +6,20 @@ const ctx = canvas.getContext("2d");
 let startMenuOff = false;
 canvas.width = 1380;
 canvas.height = window.innerHeight;
-const currentDirection = {
+
+const Directions = {
   directionLeft: 1,
   directionRight: 2,
   directionUp: 3,
   directionDown: 4,
 };
+let CurrentDirection;
+
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
-  startMenuOff=true;
+  startMenuOff = true;
 };
 class myPlayer {
   constructor() {
@@ -40,8 +43,8 @@ class myPlayer {
 class Fruit {
   constructor() {
     this.position = {
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
     };
 
     this.width = 30;
@@ -58,7 +61,7 @@ class Fruit {
 }
 const fruit = new Fruit();
 
-  fruit.update();
+fruit.update();
 
 const player = new myPlayer();
 const keys = {
@@ -78,28 +81,47 @@ const keys = {
 
 function animation() {
   requestAnimationFrame(animation);
-  if(fruit.position.x==player.position.x &&fruit.position.y == player.position.y){
-    fruit.position.x = Math.random()*canvas.width;
-    fruit.position.y = Math.random()*canvas.height;
+  if (
+    fruit.position.x == player.position.x &&
+    fruit.position.y == player.position.y
+  ) {
+    fruit.position.x = Math.random() * canvas.width;
+    fruit.position.y = Math.random() * canvas.height;
     fruit.update();
   }
   player.update();
 
   if (keys.left.pressed) {
-    player.position.x = player.position.x - 5;
-    currentDirection = 1;
+    if (CurrentDirection !== Directions.directionRight) {
+      player.position.x = player.position.x - 5;
+      CurrentDirection = Directions.directionLeft;
+    } else {
+      keys.right.pressed = true;
+    }
   }
   if (keys.up.pressed) {
-    player.position.y = player.position.y - 5;
-    currentDirection = 2;
+    if (CurrentDirection !== Directions.directionDown) {
+      player.position.y = player.position.y - 5;
+      CurrentDirection = Directions.directionUp;
+    } else {
+      keys.down.pressed = true;
+    }
   }
   if (keys.down.pressed) {
-    player.position.y = player.position.y + 5;
-    currentDirection = 3;
+    if (CurrentDirection !== Directions.directionUp) {
+      player.position.y = player.position.y + 5;
+      CurrentDirection = Directions.directionDown;
+    } else {
+      keys.up.pressed = true;
+    }
   }
   if (keys.right.pressed) {
-    player.position.x = player.position.x + 5;
-    currentDirection = 4;
+    if (CurrentDirection !== Directions.directionLeft) {
+      player.position.x = player.position.x + 5;
+      CurrentDirection = Directions.directionRight;
+    } else {
+      keys.left.pressed = true;
+    }
   }
   if (player.position.x >= canvas.width) {
     player.position.x = 0;
@@ -119,6 +141,9 @@ addEventListener("keydown", ({ keyCode }) => {
       keys.up.pressed = false;
       keys.right.pressed = false;
       keys.down.pressed = false;
+      if (CurrentDirection === null) {
+        CurrentDirection = Directions.directionLeft;
+      }
 
       break;
     case 68:
@@ -126,18 +151,27 @@ addEventListener("keydown", ({ keyCode }) => {
       keys.left.pressed = false;
       keys.up.pressed = false;
       keys.down.pressed = false;
+      if (CurrentDirection === null) {
+        CurrentDirection = Directions.directionRight;
+      }
       break;
     case 87:
       keys.up.pressed = true;
       keys.down.pressed = false;
       keys.left.pressed = false;
       keys.right.pressed = false;
+      if (CurrentDirection === null) {
+        CurrentDirection = Directions.directionUp;
+      }
       break;
     case 83:
       keys.down.pressed = true;
       keys.up.pressed = false;
       keys.left.pressed = false;
       keys.right.pressed = false;
+      if (CurrentDirection === null) {
+        CurrentDirection = Directions.directionDown;
+      }
 
       break;
   }
