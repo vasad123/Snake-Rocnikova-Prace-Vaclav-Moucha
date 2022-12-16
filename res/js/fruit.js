@@ -3,29 +3,27 @@ import {
   wrapper,
   footer,
   canvas,
-  startMenuOff,
   ctx,
   Directions,
   CurrentDirection,
 } from "./globalContext.js";
 
-class myPlayer {
+export class Fruit {
   constructor() {
     this.position = {
-      x: canvas.width / 2,
-      y: 500,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
     };
 
-    this.width = 50;
-    this.height = 50;
+    this.width = 30;
+    this.height = 30;
   }
 
   draw() {
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "red";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
   update() {
     this.draw();
   }
 }
-export default myPlayer;
