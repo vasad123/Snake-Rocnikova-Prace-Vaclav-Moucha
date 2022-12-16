@@ -10,6 +10,8 @@ import {
 import myPlayer from "./player.js";
 import { Fruit } from "./fruit.js";
 export { keys, animation };
+canvas.width = 1380;
+canvas.height = window.innerHeight;
 const player = new myPlayer();
 const fruit = new Fruit();
 const keys = {
@@ -28,6 +30,7 @@ const keys = {
 };
 
 function animation() {
+  console.log("DIRRRR" + Directions.left);
   requestAnimationFrame(animation);
 
   if (

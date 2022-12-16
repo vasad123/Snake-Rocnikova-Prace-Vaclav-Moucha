@@ -7,7 +7,6 @@ import {
   ctx,
   Directions,
 } from "./globalContext.js";
-
 import { Fruit } from "./fruit.js";
 import { keys, animation } from "./movement.js";
 let startMenuOff;
