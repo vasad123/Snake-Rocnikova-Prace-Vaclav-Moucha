@@ -1,12 +1,4 @@
-
-import {
-  mybutton,
-  wrapper,
-  footer,
-  canvas,
-  ctx,
-
-} from "./globalContext.js";
+import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
 
 canvas.width = 1380;
 canvas.height = window.innerHeight;
@@ -18,7 +10,6 @@ const Directions = {
   directionDown: 4,
 };
 let CurrentDirection;
-
 
 mybutton.onclick = () => {
   wrapper.style.display = "none";
@@ -81,24 +72,25 @@ const keys = {
     pressed: false,
   },
 };
-
-function animation() {
-  console.log("DIRRRR" + Directions.left);
-  requestAnimationFrame(animation);
- 
-ctx.clearRect(0,0,canvas.width,canvas.height);
-  if (
+function drawingFruit(){
+  fruit.update();
+  requestAnimationFrame(drawingFruit)
+    if (
     fruit.position.x == player.position.x &&
     fruit.position.y == player.position.y
   ) {
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-  } 
-  fruit.update();
+  }
+  console.log("fachá")
+}
+function animation() {
+  requestAnimationFrame(animation);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   player.update();
 
-  if (keys.left.pressed) {
+  if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
       CurrentDirection = Directions.directionLeft;
@@ -106,7 +98,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
       keys.right.pressed = true;
     }
   }
-  if (keys.up.pressed) {
+  if (keys.up.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionDown) {
       player.position.y = player.position.y - 5;
       CurrentDirection = Directions.directionUp;
@@ -114,7 +106,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
       keys.down.pressed = true;
     }
   }
-  if (keys.down.pressed) {
+  if (keys.down.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionUp) {
       player.position.y = player.position.y + 5;
       CurrentDirection = Directions.directionDown;
@@ -122,7 +114,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
       keys.up.pressed = true;
     }
   }
-  if (keys.right.pressed) {
+  if (keys.right.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionLeft) {
       player.position.x = player.position.x + 5;
       CurrentDirection = Directions.directionRight;
@@ -138,6 +130,12 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
     player.position.y = 0;
   } else if (player.position.y < 0) {
     player.position.y = window.innerHeight;
+  }
+  if (
+    player.position.x == fruit.position.x ||
+    player.position.y == fruit.position.y
+  ) {
+    console.log("collision");
   }
 }
 
@@ -183,10 +181,5 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
   }
 });
-
-
-
-
-fruit.update();
-
+drawingFruit();
 animation();
