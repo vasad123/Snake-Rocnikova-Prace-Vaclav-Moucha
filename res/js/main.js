@@ -1,5 +1,4 @@
 import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
-
 canvas.width = 1380;
 canvas.height = window.innerHeight;
 let startMenuOff = false;
@@ -10,7 +9,6 @@ const Directions = {
   directionDown: 4,
 };
 let CurrentDirection;
-
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
@@ -27,7 +25,6 @@ class myPlayer {
     this.width = 50;
     this.height = 50;
   }
-
   draw() {
     ctx.fillStyle = "green";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -46,7 +43,6 @@ class Fruit {
     this.width = 30;
     this.height = 30;
   }
-
   draw() {
     ctx.fillStyle = "red";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -72,22 +68,29 @@ const keys = {
     pressed: false,
   },
 };
-function drawingFruit(){
+function drawingFruit() {
   fruit.update();
-  requestAnimationFrame(drawingFruit)
-    if (
+  requestAnimationFrame(drawingFruit);
+  if (
     fruit.position.x == player.position.x &&
     fruit.position.y == player.position.y
   ) {
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-  }
-  console.log("fachá")
+  } /* if (
+    player.position.x < fruit.position.x + fruit.width &&
+    player.position.x + player.position.w > fruit.position.x &&
+    player.position.y < fruit.position.y + fruit.height &&
+    player.height + player.position.y > fruit.position.y
+  ){
+    console.log("collision");
+  }*/
+
 }
 function animation() {
   requestAnimationFrame(animation);
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
 
   if (keys.left.pressed && startMenuOff == true) {
@@ -131,12 +134,7 @@ function animation() {
   } else if (player.position.y < 0) {
     player.position.y = window.innerHeight;
   }
-  if (
-    player.position.x == fruit.position.x ||
-    player.position.y == fruit.position.y
-  ) {
-    console.log("collision");
-  }
+ 
 }
 
 addEventListener("keydown", ({ keyCode }) => {
