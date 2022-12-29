@@ -68,7 +68,7 @@ const keys = {
     pressed: false,
   },
 };
-function drawingFruit() {
+/*function drawingFruit() {
   fruit.update();
   requestAnimationFrame(drawingFruit);
   if (
@@ -78,13 +78,14 @@ function drawingFruit() {
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-  }
+  } 
 
-}
+}*/
 function animation() {
   requestAnimationFrame(animation);
-  ctx.clearRect(0, 0,player.height, player.width );
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
+  fruit.update();  
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
@@ -171,5 +172,5 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
   }
 });
-drawingFruit();
+//drawingFruit();
 animation();
