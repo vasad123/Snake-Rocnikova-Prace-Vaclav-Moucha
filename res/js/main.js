@@ -78,21 +78,20 @@ function drawingFruit() {
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-  } /* if (
+  } if (
     player.position.x < fruit.position.x + fruit.width &&
     player.position.x + player.position.w > fruit.position.x &&
     player.position.y < fruit.position.y + fruit.height &&
     player.height + player.position.y > fruit.position.y
   ){
     console.log("collision");
-  }*/
+  }
 
 }
 function animation() {
   requestAnimationFrame(animation);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
-
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
