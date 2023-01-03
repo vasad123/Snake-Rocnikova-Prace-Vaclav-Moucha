@@ -18,7 +18,7 @@ mybutton.onclick = () => {
 class myPlayer {
   constructor() {
     this.position = {
-      x: canvas.width / 2,
+      x: 660,
       y: 500,
     };
 
@@ -83,37 +83,37 @@ const keys = {
 }*/
 function animation() {
   requestAnimationFrame(animation);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
   fruit.update();  
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
-      player.position.x = player.position.x - 5;
-      CurrentDirection = Directions.directionLeft;
+     if(player.position.y%player.width==0){player.position.x = player.position.x - 5;
+      CurrentDirection = Directions.directionLeft;}
     } else {
       keys.right.pressed = true;
     }
   }
   if (keys.up.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionDown) {
-      player.position.y = player.position.y - 5;
-      CurrentDirection = Directions.directionUp;
+      if(player.position.x%player.width==0){ player.position.y = player.position.y - 5;
+      CurrentDirection = Directions.directionUp;}
     } else {
       keys.down.pressed = true;
     }
   }
   if (keys.down.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionUp) {
-      player.position.y = player.position.y + 5;
-      CurrentDirection = Directions.directionDown;
+      if(player.position.x%player.width==0){ player.position.y = player.position.y + 5;
+      CurrentDirection = Directions.directionDown;}
     } else {
       keys.up.pressed = true;
     }
   }
   if (keys.right.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionLeft) {
-      player.position.x = player.position.x + 5;
-      CurrentDirection = Directions.directionRight;
+      if(player.position.y%player.width==0){player.position.x = player.position.x + 5;
+      CurrentDirection = Directions.directionRight;}
     } else {
       keys.left.pressed = true;
     }
@@ -174,3 +174,6 @@ addEventListener("keydown", ({ keyCode }) => {
 });
 //drawingFruit();
 animation();
+console.log(canvas.width);
+console.log(canvas.height);
+
