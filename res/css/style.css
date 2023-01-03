@@ -53,11 +53,11 @@ button:hover {
 
 #canvas {
     display: none;
-    max-height: 100%;
+    margin-top: 1.3%;
     align-items: center;
     justify-content: center;
     background-color: whitesmoke;
-
+   
 
 }
 

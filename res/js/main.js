@@ -1,6 +1,6 @@
 import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
-canvas.width = 1380;
-canvas.height = window.innerHeight;
+canvas.width = 1440;
+canvas.height = 960;
 let startMenuOff = false;
 const Directions = {
   directionLeft: 1,
@@ -18,12 +18,12 @@ mybutton.onclick = () => {
 class myPlayer {
   constructor() {
     this.position = {
-      x: canvas.width / 2,
-      y: 500,
+      x: canvas.width/2,
+      y: canvas.height/2,
     };
 
-    this.width = 50;
-    this.height = 50;
+    this.width = 60;
+    this.height = 60;
   }
   draw() {
     ctx.fillStyle = "green";
@@ -86,7 +86,7 @@ function animation() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
   fruit.update();  
-  if (keys.left.pressed && startMenuOff == true) {
+  if (keys.left.pressed && startMenuOff == true&&player.position.y%player.width==0) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
       CurrentDirection = Directions.directionLeft;
@@ -94,7 +94,7 @@ function animation() {
       keys.right.pressed = true;
     }
   }
-  if (keys.up.pressed && startMenuOff == true) {
+  if (keys.up.pressed && startMenuOff == true&&player.position.x%player.width==0) {
     if (CurrentDirection !== Directions.directionDown) {
       player.position.y = player.position.y - 5;
       CurrentDirection = Directions.directionUp;
@@ -102,7 +102,7 @@ function animation() {
       keys.down.pressed = true;
     }
   }
-  if (keys.down.pressed && startMenuOff == true) {
+  if (keys.down.pressed && startMenuOff == true&&player.position.x%player.width==0) {
     if (CurrentDirection !== Directions.directionUp) {
       player.position.y = player.position.y + 5;
       CurrentDirection = Directions.directionDown;
@@ -110,7 +110,7 @@ function animation() {
       keys.up.pressed = true;
     }
   }
-  if (keys.right.pressed && startMenuOff == true) {
+  if (keys.right.pressed && startMenuOff == true&&player.position.y%player.width==0) {
     if (CurrentDirection !== Directions.directionLeft) {
       player.position.x = player.position.x + 5;
       CurrentDirection = Directions.directionRight;
@@ -125,9 +125,10 @@ function animation() {
   } else if (player.position.y >= canvas.height) {
     player.position.y = 0;
   } else if (player.position.y < 0) {
-    player.position.y = window.innerHeight;
+    player.position.y = canvas.height;
   }
- 
+ console.log(player.position.x);
+console.log(player.position.y);
 }
 
 addEventListener("keydown", ({ keyCode }) => {
@@ -174,3 +175,6 @@ addEventListener("keydown", ({ keyCode }) => {
 });
 //drawingFruit();
 animation();
+
+console.log(canvas.width);
+console.log(canvas.height);
