@@ -18,8 +18,8 @@ mybutton.onclick = () => {
 class myPlayer {
   constructor() {
     this.position = {
-      x: canvas.width/2,
-      y: canvas.height/2,
+      x: canvas.width / 2,
+      y: canvas.height / 2,
     };
 
     this.width = 60;
@@ -85,8 +85,8 @@ function animation() {
   requestAnimationFrame(animation);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
-  fruit.update();  
-  if (keys.left.pressed && startMenuOff == true&&player.position.y%player.width==0) {
+  fruit.update();
+  if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
       CurrentDirection = Directions.directionLeft;
@@ -94,7 +94,7 @@ function animation() {
       keys.right.pressed = true;
     }
   }
-  if (keys.up.pressed && startMenuOff == true&&player.position.x%player.width==0) {
+  if (keys.up.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionDown) {
       player.position.y = player.position.y - 5;
       CurrentDirection = Directions.directionUp;
@@ -102,7 +102,7 @@ function animation() {
       keys.down.pressed = true;
     }
   }
-  if (keys.down.pressed && startMenuOff == true&&player.position.x%player.width==0) {
+  if (keys.down.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionUp) {
       player.position.y = player.position.y + 5;
       CurrentDirection = Directions.directionDown;
@@ -110,7 +110,7 @@ function animation() {
       keys.up.pressed = true;
     }
   }
-  if (keys.right.pressed && startMenuOff == true&&player.position.y%player.width==0) {
+  if (keys.right.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionLeft) {
       player.position.x = player.position.x + 5;
       CurrentDirection = Directions.directionRight;
@@ -127,8 +127,20 @@ function animation() {
   } else if (player.position.y < 0) {
     player.position.y = canvas.height;
   }
- console.log(player.position.x);
-console.log(player.position.y);
+  if (
+    ((player.position.x+ player.width) >= (fruit.position.x)) &&
+        (player.position.x <= (fruit.position.x + fruit.width)) &&
+        ((player.position.y + player.height) >=fruit.position.y) &&
+        (player.position.y<= (fruit.position.y + fruit.height))
+  ) {
+    fruit.position.x = Math.random() * canvas.width;
+    fruit.position.y = Math.random() * canvas.height;
+    fruit.update();
+    console.log("point")
+  } 
+
+  //console.log(player.position.x);
+  //console.log(player.position.y);
 }
 
 addEventListener("keydown", ({ keyCode }) => {
@@ -175,6 +187,7 @@ addEventListener("keydown", ({ keyCode }) => {
 });
 //drawingFruit();
 animation();
-
+console.log(fruit.position.x);
+console.log(fruit.position.y);
 console.log(canvas.width);
 console.log(canvas.height);
