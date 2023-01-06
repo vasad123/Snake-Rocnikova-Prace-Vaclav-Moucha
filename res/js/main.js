@@ -1,6 +1,7 @@
 import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
 canvas.width = 1440;
 canvas.height = 960;
+
 let startMenuOff = false;
 const Directions = {
   directionLeft: 1,
@@ -51,8 +52,27 @@ class Fruit {
     this.draw();
   }
 }
+class Score {
+  constructor() {
+    this.position = {
+      x: 20,
+      y: 40,
+    };
+    this.score = 0;
+  }
+  draw() {
+    ctx.fillStyle = "black";
+    ctx.font = "48px serif";
+    ctx.fillText = (this.score, this.position.x, this.position.y);
+  }
+  update() {
+    this.draw();
+  }
+}
+
 const fruit = new Fruit();
 const player = new myPlayer();
+const score = new Score();
 
 const keys = {
   right: {
@@ -73,7 +93,9 @@ function animation() {
   requestAnimationFrame(animation);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
+  score.update();
   fruit.update();
+
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
@@ -121,10 +143,10 @@ function animation() {
     player.position.y + player.height >= fruit.position.y &&
     player.position.y <= fruit.position.y + fruit.height
   ) {
-   
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
+this.score=+100;
     console.log("point");
   }
 }
