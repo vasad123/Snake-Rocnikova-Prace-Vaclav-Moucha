@@ -68,19 +68,7 @@ const keys = {
     pressed: false,
   },
 };
-/*function drawingFruit() {
-  fruit.update();
-  requestAnimationFrame(drawingFruit);
-  if (
-    fruit.position.x == player.position.x &&
-    fruit.position.y == player.position.y
-  ) {
-    fruit.position.x = Math.random() * canvas.width;
-    fruit.position.y = Math.random() * canvas.height;
-    fruit.update();
-  } 
 
-}*/
 function animation() {
   requestAnimationFrame(animation);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,19 +116,17 @@ function animation() {
     player.position.y = canvas.height;
   }
   if (
-    ((player.position.x+ player.width) >= (fruit.position.x)) &&
-        (player.position.x <= (fruit.position.x + fruit.width)) &&
-        ((player.position.y + player.height) >=fruit.position.y) &&
-        (player.position.y<= (fruit.position.y + fruit.height))
+    player.position.x + player.width >= fruit.position.x &&
+    player.position.x <= fruit.position.x + fruit.width &&
+    player.position.y + player.height >= fruit.position.y &&
+    player.position.y <= fruit.position.y + fruit.height
   ) {
+   
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-    console.log("point")
-  } 
-
-  //console.log(player.position.x);
-  //console.log(player.position.y);
+    console.log("point");
+  }
 }
 
 addEventListener("keydown", ({ keyCode }) => {
@@ -185,9 +171,5 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
   }
 });
-//drawingFruit();
+
 animation();
-console.log(fruit.position.x);
-console.log(fruit.position.y);
-console.log(canvas.width);
-console.log(canvas.height);
