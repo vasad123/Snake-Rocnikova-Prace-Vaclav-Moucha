@@ -1,7 +1,9 @@
 import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
+import { Score } from "./score.js";
+import { myPlayer } from "./entities/player.js";
+import { Fruit } from "./entities/fruit.js";
 canvas.width = 1440;
 canvas.height = 960;
-
 let startMenuOff = false;
 const Directions = {
   directionLeft: 1,
@@ -16,59 +18,6 @@ mybutton.onclick = () => {
   footer.style.display = "none";
   startMenuOff = true;
 };
-class myPlayer {
-  constructor() {
-    this.position = {
-      x: canvas.width / 2,
-      y: canvas.height / 2,
-    };
-
-    this.width = 60;
-    this.height = 60;
-  }
-  draw() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
-  update() {
-    this.draw();
-  }
-}
-class Fruit {
-  constructor() {
-    this.position = {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-    };
-
-    this.width = 30;
-    this.height = 30;
-  }
-  draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
-  update() {
-    this.draw();
-  }
-}
-class Score {
-  constructor() {
-    this.position = {
-      x: 20,
-      y: 40,
-    };
-    this.score = 0;
-  }
-  draw() {
-    ctx.fillStyle = "black";
-    ctx.font = "48px serif";
-    ctx.fillText = (this.score, this.position.x, this.position.y);
-  }
-  update() {
-    this.draw();
-  }
-}
 
 const fruit = new Fruit();
 const player = new myPlayer();
@@ -93,8 +42,8 @@ function animation() {
   requestAnimationFrame(animation);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
-  score.update();
   fruit.update();
+  score.update();
 
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
@@ -146,9 +95,10 @@ function animation() {
     fruit.position.x = Math.random() * canvas.width;
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
-this.score=+100;
     console.log("point");
+    score.points+=100;
   }
+  console.log(score.points);
 }
 
 addEventListener("keydown", ({ keyCode }) => {
