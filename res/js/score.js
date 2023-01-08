@@ -10,7 +10,7 @@ export class Score {
   draw() {
     ctx.fillStyle = "black";
     ctx.font = "48px serif";
-    ctx.fillText = ("Score: ${this.points}", this.position.x, this.position.y);
+    ctx.fillText( this.points,this.position.x,this.position.y);
   }
   update() {
     this.draw();

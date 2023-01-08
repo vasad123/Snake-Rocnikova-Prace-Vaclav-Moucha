@@ -45,6 +45,7 @@ function animation() {
   fruit.update();
   score.update();
 
+
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - 5;
