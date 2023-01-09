@@ -26,7 +26,7 @@ mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
- 
+ startMenuOff=true;
 };
 
 const fruit = new Fruit();
@@ -48,15 +48,7 @@ const keys = {
   },
 };
 
-function animation() {
-  requestAnimationFrame(animation);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  player.update();
-  fruit.update();
-  score.update();
-  
-
-
+function movement(){
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - player.speed;
@@ -89,7 +81,9 @@ function animation() {
       keys.left.pressed = true;
     }
   }
-  if (player.position.x >= canvas.width) {
+}
+function checkCorners(){
+   if (player.position.x >= canvas.width) {
     player.position.x = 0;
   } else if (player.position.x < 0) {
     player.position.x = canvas.width;
@@ -98,7 +92,9 @@ function animation() {
   } else if (player.position.y < 0) {
     player.position.y = canvas.height;
   }
-  if (
+}
+function collision(){
+   if (
     player.position.x + player.width >= fruit.position.x &&
     player.position.x <= fruit.position.x + fruit.width &&
     player.position.y + player.height >= fruit.position.y &&
@@ -112,10 +108,18 @@ function animation() {
     if(harderMode==true){
   player.speed+=0.1;}
   }
-  console.log(score.points);
-  console.log(player.speed);
 }
+function animation() {
+  requestAnimationFrame(animation);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  player.update();
+  fruit.update();
+  score.update();
+  movement();
+  checkCorners();
+  collision();
 
+}
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
