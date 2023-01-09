@@ -1,4 +1,11 @@
-import { mybutton, wrapper, footer, canvas, ctx,harder} from "./globalContext.js";
+import {
+  mybutton,
+  wrapper,
+  footer,
+  canvas,
+  ctx,
+  harder,
+} from "./globalContext.js";
 import { Score } from "./score.js";
 import { myPlayer } from "./entities/player.js";
 import { Fruit } from "./entities/fruit.js";
@@ -13,20 +20,19 @@ const Directions = {
   directionDown: 4,
 };
 let CurrentDirection;
-harder.onclick = ()=>{
+harder.onclick = () => {
   harder.style.display = "none";
-  harderMode=true; 
+  harderMode = true;
   startMenuOff = true;
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
-
-}
+};
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
- startMenuOff=true;
+  startMenuOff = true;
 };
 
 const fruit = new Fruit();
@@ -48,7 +54,7 @@ const keys = {
   },
 };
 
-function movement(){
+function movement() {
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
       player.position.x = player.position.x - player.speed;
@@ -82,8 +88,8 @@ function movement(){
     }
   }
 }
-function checkCorners(){
-   if (player.position.x >= canvas.width) {
+function checkCorners() {
+  if (player.position.x >= canvas.width) {
     player.position.x = 0;
   } else if (player.position.x < 0) {
     player.position.x = canvas.width;
@@ -93,8 +99,8 @@ function checkCorners(){
     player.position.y = canvas.height;
   }
 }
-function collision(){
-   if (
+function collision() {
+  if (
     player.position.x + player.width >= fruit.position.x &&
     player.position.x <= fruit.position.x + fruit.width &&
     player.position.y + player.height >= fruit.position.y &&
@@ -104,9 +110,10 @@ function collision(){
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
     console.log("point");
-    score.points+=100;
-    if(harderMode==true){
-  player.speed+=0.1;}
+    score.points += 100;
+    if (harderMode == true) {
+      player.speed += 0.1;
+    }
   }
 }
 function animation() {
@@ -118,7 +125,6 @@ function animation() {
   movement();
   checkCorners();
   collision();
-
 }
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
