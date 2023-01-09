@@ -15,13 +15,18 @@ const Directions = {
 let CurrentDirection;
 harder.onclick = ()=>{
   harder.style.display = "none";
-  harderMode=true;
+  harderMode=true; 
+  startMenuOff = true;
+  wrapper.style.display = "none";
+  canvas.style.display = "flex";
+  footer.style.display = "none";
+
 }
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
   footer.style.display = "none";
-  startMenuOff = true;
+ 
 };
 
 const fruit = new Fruit();
