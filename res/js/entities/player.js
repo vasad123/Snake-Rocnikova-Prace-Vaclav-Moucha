@@ -10,6 +10,7 @@ export class myPlayer {
 
     this.width = 60;
     this.height = 60;
+    this.speed = 5;
   }
   draw() {
     ctx.fillStyle = "green";

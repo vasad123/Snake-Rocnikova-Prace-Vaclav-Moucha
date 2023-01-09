@@ -1,10 +1,11 @@
-import { mybutton, wrapper, footer, canvas, ctx } from "./globalContext.js";
+import { mybutton, wrapper, footer, canvas, ctx,harder} from "./globalContext.js";
 import { Score } from "./score.js";
 import { myPlayer } from "./entities/player.js";
 import { Fruit } from "./entities/fruit.js";
 canvas.width = 1440;
 canvas.height = 960;
 let startMenuOff = false;
+let harderMode = false;
 const Directions = {
   directionLeft: 1,
   directionRight: 2,
@@ -12,6 +13,10 @@ const Directions = {
   directionDown: 4,
 };
 let CurrentDirection;
+harder.onclick = ()=>{
+  harder.style.display = "none";
+  harderMode=true;
+}
 mybutton.onclick = () => {
   wrapper.style.display = "none";
   canvas.style.display = "flex";
@@ -44,11 +49,12 @@ function animation() {
   player.update();
   fruit.update();
   score.update();
+  
 
 
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
-      player.position.x = player.position.x - 5;
+      player.position.x = player.position.x - player.speed;
       CurrentDirection = Directions.directionLeft;
     } else {
       keys.right.pressed = true;
@@ -56,7 +62,7 @@ function animation() {
   }
   if (keys.up.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionDown) {
-      player.position.y = player.position.y - 5;
+      player.position.y = player.position.y - player.speed;
       CurrentDirection = Directions.directionUp;
     } else {
       keys.down.pressed = true;
@@ -64,7 +70,7 @@ function animation() {
   }
   if (keys.down.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionUp) {
-      player.position.y = player.position.y + 5;
+      player.position.y = player.position.y + player.speed;
       CurrentDirection = Directions.directionDown;
     } else {
       keys.up.pressed = true;
@@ -72,7 +78,7 @@ function animation() {
   }
   if (keys.right.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionLeft) {
-      player.position.x = player.position.x + 5;
+      player.position.x = player.position.x + player.speed;
       CurrentDirection = Directions.directionRight;
     } else {
       keys.left.pressed = true;
@@ -98,8 +104,11 @@ function animation() {
     fruit.update();
     console.log("point");
     score.points+=100;
+    if(harderMode==true){
+  player.speed+=0.1;}
   }
   console.log(score.points);
+  console.log(player.speed);
 }
 
 addEventListener("keydown", ({ keyCode }) => {
