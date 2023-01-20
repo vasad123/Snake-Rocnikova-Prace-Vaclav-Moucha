@@ -11,6 +11,7 @@ import { Score } from "./score.js";
 import { myPlayer } from "./entities/player.js";
 import { Fruit } from "./entities/fruit.js";
 import { deathScreen } from "./death.js";
+import { Tail } from "./entities/tail.js";
 canvas.width = 1440;
 canvas.height = 960;
 let startMenuOff = false;
@@ -22,6 +23,7 @@ const Directions = {
   directionUp: 3,
   directionDown: 4,
 };
+
 let CurrentDirection;
 harder.onclick = () => {
   harder.style.display = "none";
