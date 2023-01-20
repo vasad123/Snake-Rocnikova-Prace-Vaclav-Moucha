@@ -5,7 +5,6 @@ import {
   canvas,
   ctx,
   harder,
-
 } from "./globalContext.js";
 import { Score } from "./score.js";
 import { myPlayer } from "./entities/player.js";
@@ -25,6 +24,9 @@ const Directions = {
 };
 
 let CurrentDirection;
+positionX=[];
+positionY=[];
+
 harder.onclick = () => {
   harder.style.display = "none";
   harderMode = true;
@@ -58,12 +60,17 @@ const keys = {
     pressed: false,
   },
 };
-function Death(){
-  if (player.position.x >= canvas.width||player.position.x < 0||player.position.y >= canvas.height||player.position.y < 0&&harderMode==true) {
-runningGame =false;
- death.update();
-   
-}}
+function Death() {
+  if (
+    player.position.x >= canvas.width ||
+    player.position.x < 0 ||
+    player.position.y >= canvas.height ||
+    (player.position.y < 0 && harderMode == true)
+  ) {
+    runningGame = false;
+    death.update();
+  }
+}
 
 function movement() {
   if (keys.left.pressed && startMenuOff == true) {
@@ -127,19 +134,21 @@ function collision() {
   }
 }
 function animation() {
-  if(runningGame==true){
-  requestAnimationFrame(animation);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  player.update();
-  fruit.update();
-  score.update();
-  movement();
-  if (harderMode != true) {
-    checkCorners();
-  }
-else{ Death();}
+  if (runningGame == true) {
+    requestAnimationFrame(animation);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    player.update();
+    fruit.update();
+    score.update();
+    movement();
+    if (harderMode != true) {
+      checkCorners();
+    } else {
+      Death();
+    }
 
-  collision();}
+    collision();
+  }
 }
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
