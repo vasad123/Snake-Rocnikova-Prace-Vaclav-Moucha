@@ -11,8 +11,8 @@ import { myPlayer } from "./entities/player.js";
 import { Fruit } from "./entities/fruit.js";
 import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
-canvas.width = 1440;
-canvas.height = 960;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 let startMenuOff = false;
 let harderMode = false;
 let runningGame = true;
@@ -24,8 +24,8 @@ const Directions = {
 };
 
 let CurrentDirection;
-positionX=[];
-positionY=[];
+let positionX=[];
+let positionY=[];
 
 harder.onclick = () => {
   harder.style.display = "none";
