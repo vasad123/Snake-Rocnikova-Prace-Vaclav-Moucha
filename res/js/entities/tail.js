@@ -1,7 +1,7 @@
 import { ctx } from "../globalContext.js";
 import { myPlayer } from "./player.js";
-canvas.width = 1440;
-canvas.height = 960;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const player = new myPlayer();
 export class Tail {
   constructor() {

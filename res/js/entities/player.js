@@ -1,6 +1,6 @@
 import { ctx } from "../globalContext.js";
-canvas.width = 1440;
-canvas.height = 960;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 export class myPlayer {
   constructor() {
     this.position = {
