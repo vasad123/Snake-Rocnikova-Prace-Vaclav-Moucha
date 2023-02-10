@@ -1,12 +1,12 @@
 import { ctx } from "../globalContext.js";
 import { myPlayer } from "./player.js";
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const player = new myPlayer();
+canvas.width = window.innerWidth-350;
+canvas.height = window.innerHeight-25;
+
 export class Tail {
-  constructor() {
+  constructor(x) {
     this.position = {
-      x: canvas.width / player.height,
+      x: x,
       y: canvas.height / 2,
     };
 
