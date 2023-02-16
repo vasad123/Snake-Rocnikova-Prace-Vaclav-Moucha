@@ -4,10 +4,10 @@ canvas.width = window.innerWidth-350;
 canvas.height = window.innerHeight-25;
 
 export class Tail {
-  constructor(x) {
+  constructor(x,y) {
     this.position = {
       x: x,
-      y: canvas.height / 2,
+      y: y
     };
 
     this.width = 60;

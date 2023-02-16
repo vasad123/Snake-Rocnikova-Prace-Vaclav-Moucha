@@ -13,10 +13,14 @@ import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
-export let tailLenght = 2;
+export let tailLenght = 4;
 let startMenuOff = false;
 let harderMode = false;
 let runningGame = true;
+let lastX = 0;
+let lastY = 0;
+let lastX2 = 0;
+let lastY2 = 0;
 const Directions = {
   directionLeft: 1,
   directionRight: 2,
@@ -136,27 +140,61 @@ function collision() {
 }
 
 function renderingTails() {
-  for (let a = 0; a <= tailLenght; a++) {
-    console.log(a);
-    player.tails[a];
-    player.tails[new Tail(a)];
-    if (a == 0) {
+  if (player.tails.length == 0) {
+    player.tails.push(new Tail(player.position.x + 60, player.position.y));
+    player.tails.push(new Tail(player.position.x + 120, player.position.y));
+    player.tails.push(new Tail(player.position.x + 180, player.position.y));
+  }
+
+  console.log(player.tails.length + " delka ocasu");
+  for (let a = 0; a < player.tails.length; a++) {
+    console.log(a + " počet a");
+      console.log(
+      "ocas 0 " +
+        player.tails[0] +
+        " " +
+        player.tails[0].position.y +
+        " " +
+        player.tails[0].position.x
+    ); console.log(
+      "ocas 1 " +
+        player.tails[1] +
+        " " +
+        player.tails[1].position.y +
+        " " +
+        player.tails[1].position.x
+    );
+ 
+    console.log(
+      "ocas 2 " +
+        player.tails[2] +
+        " " +
+        player.tails[2].position.y +
+        " " +
+        player.tails[2].position.x
+    );
+
+    if (player.tails.length == 1 || a == 0) {
       if (
         player.position.x + player.width >= player.tails[a].position.x &&
         player.position.x <= player.tails[a].position.x + tail.width &&
         player.position.y + player.height >= player.tails[a].position.y &&
         player.position.y <= player.tails[a].position.y + tail.height
       ) {
+        console.log("collision")
       } else {
+        lastX = player.tails[a].position.x;
+        lastY = player.tails[a].position.y;
+
         player.tails[a].position.x = player.position.x;
         player.tails[a].position.y = player.position.y;
-     
+
+        console.log("not in collision 1");
       }
     }
-    console.log(player.tails);
-
-    if (player.tails.length > 1) {
-      console.log("ll");
+    console.log(lastX);
+    console.log(lastY);
+    if (player.tails.length > 1 && a > 0) {
       if (
         player.tails[a].position.x + tail.width >=
           player.tails[a - 1].position.x &&
@@ -165,13 +203,21 @@ function renderingTails() {
         player.tails[a].position.y + tail.height >=
           player.tails[a - 1].position.y &&
         player.tails[a].position.y <=
-          player.tails[a - 1].position.y + tail.height 
-          
+          player.tails[a - 1].position.y + tail.height
       ) {
       } else {
-        player.tails[a].position.x = player.tails[a - 1].position.x;
-        player.tails[a].position.y = player.tails[a - 1].position.y; 
-         
+        if (a == 1) {
+          console.log("if")
+        lastX2 = player.tails[a].position.x;
+        lastY2 = player.tails[a].position.y;
+          player.tails[a].position.x = lastX;
+          player.tails[a].position.y = lastY;
+        }else{
+          console.log("else")
+          player.tails[a].position.x = lastX2;
+          player.tails[a].position.y = lastY2;
+        }
+        console.log("not in collision 2");
       }
     }
   }
@@ -192,7 +238,6 @@ function animation() {
       Death();
     }
 
-    tail.update();
     collision();
   }
 }
