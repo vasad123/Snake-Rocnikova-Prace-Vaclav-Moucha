@@ -5,8 +5,8 @@ canvas.height = window.innerHeight-25;
 export class Fruit {
   constructor() {
     this.position = {
-      x: Math.random() * canvas.width+30,
-      y: Math.random() * canvas.height+30,
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
     };
 
     this.width = 30;
