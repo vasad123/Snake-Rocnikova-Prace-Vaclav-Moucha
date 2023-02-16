@@ -13,7 +13,7 @@ export class myPlayer {
     this.width = 60;
     this.height = 60;
     this.speed = 5;
-    this.tails = [new Tail()]
+    this.tails = [new Tail(tailLenght)]
   }
 
   addPosition(x, y) {

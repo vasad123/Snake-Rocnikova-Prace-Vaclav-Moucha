@@ -139,7 +139,7 @@ function renderingTails() {
   for (let a = 0; a <= tailLenght; a++) {
     console.log(a);
     player.tails[a];
-    player.tails[new Tail()];
+    player.tails[new Tail(a)];
     if (a == 0) {
       if (
         player.position.x + player.width >= player.tails[a].position.x &&
@@ -150,11 +150,13 @@ function renderingTails() {
       } else {
         player.tails[a].position.x = player.position.x;
         player.tails[a].position.y = player.position.y;
+     
       }
     }
     console.log(player.tails);
 
     if (player.tails.length > 1) {
+      console.log("ll");
       if (
         player.tails[a].position.x + tail.width >=
           player.tails[a - 1].position.x &&
@@ -163,11 +165,13 @@ function renderingTails() {
         player.tails[a].position.y + tail.height >=
           player.tails[a - 1].position.y &&
         player.tails[a].position.y <=
-          player.tails[a - 1].position.y + tail.height
+          player.tails[a - 1].position.y + tail.height 
+          
       ) {
       } else {
         player.tails[a].position.x = player.tails[a - 1].position.x;
-        player.tails[a].position.y = player.tails[a - 1].position.y;
+        player.tails[a].position.y = player.tails[a - 1].position.y; 
+         
       }
     }
   }
