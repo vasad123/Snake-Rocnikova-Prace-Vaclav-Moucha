@@ -29,7 +29,7 @@ const Directions = {
 };
 
 let CurrentDirection;
-
+// Starting menu
 harder.onclick = () => {
   harder.style.display = "none";
   harderMode = true;
@@ -64,7 +64,8 @@ const keys = {
     pressed: false,
   },
 };
-function Death() {
+//Death function 
+function death() {
   if (
     player.position.x >= canvas.width ||
     player.position.x <= 0 ||
@@ -75,7 +76,7 @@ function Death() {
     death.update();
   }
 }
-
+// Movement 
 function movement() {
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
@@ -110,6 +111,7 @@ function movement() {
     }
   }
 }
+//Checking if player is out of the map
 function checkCorners() {
   if (player.position.x >= canvas.width) {
     player.position.x = 0;
@@ -121,6 +123,7 @@ function checkCorners() {
     player.position.y = canvas.height;
   }
 }
+//Collision between player and fruit
 function collision() {
   if (
     player.position.x + player.width >= fruit.position.x &&
@@ -138,6 +141,7 @@ function collision() {
     }
   }
 }
+// Attempt for making a tail 
 
 function renderingTails() {
   if (player.tails.length == 0) {
@@ -146,7 +150,7 @@ function renderingTails() {
     player.tails.push(new Tail(player.position.x + 180, player.position.y));
   }
 
-  console.log(player.tails.length + " delka ocasu");
+  console.log(player.tails.length + " tail lenght");
   for (let a = 0; a < player.tails.length; a++) {
     console.log(a + " počet a");
       console.log(
@@ -157,7 +161,7 @@ function renderingTails() {
         " " +
         player.tails[0].position.x
     ); console.log(
-      "ocas 1 " +
+      "Tail  1 " +
         player.tails[1] +
         " " +
         player.tails[1].position.y +
@@ -166,7 +170,7 @@ function renderingTails() {
     );
  
     console.log(
-      "ocas 2 " +
+      "Tail 2 " +
         player.tails[2] +
         " " +
         player.tails[2].position.y +
@@ -223,6 +227,7 @@ function renderingTails() {
   }
   console.log("end of loop");
 }
+//Gameloop
 function animation() {
   if (runningGame == true) {
     requestAnimationFrame(animation);
@@ -235,12 +240,13 @@ function animation() {
     if (harderMode != true) {
       checkCorners();
     } else {
-      Death();
+      death();
     }
 
     collision();
   }
 }
+//Keys for game 
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
@@ -283,5 +289,5 @@ addEventListener("keydown", ({ keyCode }) => {
       break;
   }
 });
-
+//Drawing
 animation();
