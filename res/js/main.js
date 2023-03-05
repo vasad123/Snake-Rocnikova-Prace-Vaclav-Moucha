@@ -65,7 +65,7 @@ const keys = {
   },
 };
 //Death function 
-function death() {
+function Death() {
   if (
     player.position.x >= canvas.width ||
     player.position.x <= 0 ||
@@ -240,7 +240,7 @@ function animation() {
     if (harderMode != true) {
       checkCorners();
     } else {
-      death();
+      Death();
     }
 
     collision();
