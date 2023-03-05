@@ -13,7 +13,7 @@ import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
-export let tailLenght = 4;
+export let tailLenght = 2;
 let startMenuOff = false;
 let harderMode = false;
 let runningGame = true;
@@ -64,7 +64,7 @@ const keys = {
     pressed: false,
   },
 };
-//Death function 
+//Death function
 function Death() {
   if (
     player.position.x >= canvas.width ||
@@ -76,7 +76,7 @@ function Death() {
     death.update();
   }
 }
-// Movement 
+// Movement
 function movement() {
   if (keys.left.pressed && startMenuOff == true) {
     if (CurrentDirection !== Directions.directionRight) {
@@ -135,49 +135,21 @@ function collision() {
     fruit.position.y = Math.random() * canvas.height;
     fruit.update();
     score.points += 100;
-    tailLenght++;
+
+    player.tails.push(new Tail(player.position.x, player.position.y));
     if (harderMode == true) {
       player.speed += 0.1;
     }
   }
 }
-// Attempt for making a tail 
 
 function renderingTails() {
   if (player.tails.length == 0) {
-    player.tails.push(new Tail(player.position.x + 60, player.position.y));
-    player.tails.push(new Tail(player.position.x + 120, player.position.y));
-    player.tails.push(new Tail(player.position.x + 180, player.position.y));
+    player.tails.push(new Tail(player.position.x, player.position.y));
   }
 
   console.log(player.tails.length + " tail lenght");
   for (let a = 0; a < player.tails.length; a++) {
-    console.log(a + " počet a");
-      console.log(
-      "ocas 0 " +
-        player.tails[0] +
-        " " +
-        player.tails[0].position.y +
-        " " +
-        player.tails[0].position.x
-    ); console.log(
-      "Tail  1 " +
-        player.tails[1] +
-        " " +
-        player.tails[1].position.y +
-        " " +
-        player.tails[1].position.x
-    );
- 
-    console.log(
-      "Tail 2 " +
-        player.tails[2] +
-        " " +
-        player.tails[2].position.y +
-        " " +
-        player.tails[2].position.x
-    );
-
     if (player.tails.length == 1 || a == 0) {
       if (
         player.position.x + player.width >= player.tails[a].position.x &&
@@ -185,7 +157,7 @@ function renderingTails() {
         player.position.y + player.height >= player.tails[a].position.y &&
         player.position.y <= player.tails[a].position.y + tail.height
       ) {
-        console.log("collision")
+        console.log("collision");
       } else {
         lastX = player.tails[a].position.x;
         lastY = player.tails[a].position.y;
@@ -210,22 +182,17 @@ function renderingTails() {
           player.tails[a - 1].position.y + tail.height
       ) {
       } else {
-        if (a == 1) {
-          console.log("if")
         lastX2 = player.tails[a].position.x;
         lastY2 = player.tails[a].position.y;
-          player.tails[a].position.x = lastX;
-          player.tails[a].position.y = lastY;
-        }else{
-          console.log("else")
-          player.tails[a].position.x = lastX2;
-          player.tails[a].position.y = lastY2;
-        }
-        console.log("not in collision 2");
+
+        player.tails[a].position.x = lastX;
+        player.tails[a].position.y = lastY;
+        lastX = lastX2;
+        lastY = lastY2;
       }
     }
   }
-  console.log("end of loop");
+  console.log("end of the loop");
 }
 //Gameloop
 function animation() {
@@ -246,7 +213,7 @@ function animation() {
     collision();
   }
 }
-//Keys for game 
+//Keys for game
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 65:
