@@ -13,7 +13,9 @@ import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
+
 export let tailLenght = 2;
+
 let startMenuOff = false;
 let harderMode = false;
 let runningGame = true;
@@ -75,7 +77,22 @@ function Death() {
     runningGame = false;
     death.update();
   }
+  for (let a = 0; a < player.tails.length; a++) {
+    if (a >= 2) {
+      if (
+        player.position.x + player.width >= player.tails[a].position.x &&
+        player.position.x <= player.tails[a].position.x + tail.width &&
+        player.position.y + player.height >= player.tails[a].position.y &&
+        player.position.y <= player.tails[a].position.y + tail.height
+      ) {
+        console.log("death");
+        death.update();
+        runningGame = false;
+      }
+    }
+  }
 }
+
 // Movement
 function movement() {
   if (keys.left.pressed && startMenuOff == true) {
@@ -112,7 +129,7 @@ function movement() {
   }
 }
 //Checking if player is out of the map
-function checkCorners() {
+function collisionWithMap() {
   if (player.position.x >= canvas.width) {
     player.position.x = 0;
   } else if (player.position.x < 0) {
@@ -121,6 +138,22 @@ function checkCorners() {
     player.position.y = 0;
   } else if (player.position.y < 0) {
     player.position.y = canvas.height;
+  }
+}
+function deahtInNormalGame(){
+  for (let a = 0; a < player.tails.length; a++) {
+    if (a >= 2) {
+      if (
+        player.position.x + player.width >= player.tails[a].position.x &&
+        player.position.x <= player.tails[a].position.x + tail.width &&
+        player.position.y + player.height >= player.tails[a].position.y &&
+        player.position.y <= player.tails[a].position.y + tail.height
+      ) {
+        console.log("death");
+        death.update();
+        runningGame = false;
+      }
+    }
   }
 }
 //Collision between player and fruit
@@ -204,12 +237,13 @@ function animation() {
     score.update();
     renderingTails();
     movement();
+    deahtInNormalGame();
     if (harderMode != true) {
-      checkCorners();
+      collisionWithMap();
     } else {
       Death();
+      runningGame == false;  
     }
-
     collision();
   }
 }
@@ -254,7 +288,18 @@ addEventListener("keydown", ({ keyCode }) => {
       }
 
       break;
+   case 32:
+   if(runningGame == false){
+    player.position.x =canvas.width/2;
+    player.position.y = canvas.height/2;
+    player.tails.length=0;
+    runningGame = true;
+   console.log("space")
+   }
+ 
+        break;
   }
+  
 });
 //Drawing
 animation();
