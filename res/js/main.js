@@ -13,9 +13,6 @@ import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
-
-export let tailLenght = 2;
-
 let startMenuOff = false;
 let harderMode = false;
 let runningGame = true;
@@ -68,6 +65,7 @@ const keys = {
 };
 //Death function
 function Death() {
+  // added the death after player touches the border of the game area
   if (
     player.position.x >= canvas.width ||
     player.position.x <= 0 ||
@@ -96,6 +94,7 @@ function Death() {
 // Movement
 function movement() {
   if (keys.left.pressed && startMenuOff == true) {
+    // movement to the left
     if (CurrentDirection !== Directions.directionRight) {
       player.addPosition(-player.speed, 0);
       CurrentDirection = Directions.directionLeft;
@@ -104,6 +103,7 @@ function movement() {
     }
   }
   if (keys.up.pressed && startMenuOff == true) {
+    // movement up
     if (CurrentDirection !== Directions.directionDown) {
       player.addPosition(0, -player.speed);
       CurrentDirection = Directions.directionUp;
@@ -112,6 +112,7 @@ function movement() {
     }
   }
   if (keys.down.pressed && startMenuOff == true) {
+    // movement down
     if (CurrentDirection !== Directions.directionUp) {
       player.addPosition(0, player.speed);
       CurrentDirection = Directions.directionDown;
@@ -120,6 +121,7 @@ function movement() {
     }
   }
   if (keys.right.pressed && startMenuOff == true) {
+    // movement to the right
     if (CurrentDirection !== Directions.directionLeft) {
       player.addPosition(player.speed, 0);
       CurrentDirection = Directions.directionRight;
@@ -140,7 +142,8 @@ function collisionWithMap() {
     player.position.y = canvas.height;
   }
 }
-function deahtInNormalGame(){
+function deahtInNormalGame() {
+  // death is easier mode
   for (let a = 0; a < player.tails.length; a++) {
     if (a >= 2) {
       if (
@@ -178,11 +181,13 @@ function collision() {
 
 function renderingTails() {
   if (player.tails.length == 0) {
+    //num of tails at the beginning
     player.tails.push(new Tail(player.position.x, player.position.y));
   }
 
   console.log(player.tails.length + " tail lenght");
   for (let a = 0; a < player.tails.length; a++) {
+    // tail after the head
     if (player.tails.length == 1 || a == 0) {
       if (
         player.position.x + player.width >= player.tails[a].position.x &&
@@ -204,6 +209,7 @@ function renderingTails() {
     console.log(lastX);
     console.log(lastY);
     if (player.tails.length > 1 && a > 0) {
+      //other tails
       if (
         player.tails[a].position.x + tail.width >=
           player.tails[a - 1].position.x &&
@@ -231,7 +237,7 @@ function renderingTails() {
 function animation() {
   if (runningGame == true) {
     requestAnimationFrame(animation);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clears canvas everytime
     player.update();
     fruit.update();
     score.update();
@@ -242,7 +248,7 @@ function animation() {
       collisionWithMap();
     } else {
       Death();
-      runningGame == false;  
+      runningGame == false;
     }
     collision();
   }
@@ -250,7 +256,7 @@ function animation() {
 //Keys for game
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
-    case 65:
+    case 65: //keyA
       keys.left.pressed = true;
       keys.up.pressed = false;
       keys.right.pressed = false;
@@ -260,7 +266,7 @@ addEventListener("keydown", ({ keyCode }) => {
       }
 
       break;
-    case 68:
+    case 68: //keyD
       keys.right.pressed = true;
       keys.left.pressed = false;
       keys.up.pressed = false;
@@ -269,7 +275,7 @@ addEventListener("keydown", ({ keyCode }) => {
         CurrentDirection = Directions.directionRight;
       }
       break;
-    case 87:
+    case 87: //keyW
       keys.up.pressed = true;
       keys.down.pressed = false;
       keys.left.pressed = false;
@@ -278,7 +284,7 @@ addEventListener("keydown", ({ keyCode }) => {
         CurrentDirection = Directions.directionUp;
       }
       break;
-    case 83:
+    case 83: //keyS
       keys.down.pressed = true;
       keys.up.pressed = false;
       keys.left.pressed = false;
@@ -288,18 +294,25 @@ addEventListener("keydown", ({ keyCode }) => {
       }
 
       break;
-   case 32:
-   if(runningGame == false){
-    player.position.x =canvas.width/2;
-    player.position.y = canvas.height/2;
-    player.tails.length=0;
-    runningGame = true;
-   console.log("space")
-   }
- 
-        break;
+    case 32: //keySpace
+      if (runningGame == false) {
+        player.position.x = canvas.width / 2;
+        player.position.y = canvas.height / 2;
+        player.tails.length = 0;
+        score.points = 0;
+        runningGame = true;
+        startMenuOff = true;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        console.log("space");
+        animation();
+        keys.up.pressed = false;
+        keys.left.pressed = false;
+        keys.right.pressed = false;
+        keys.down.pressed = false;
+      }
+
+      break;
   }
-  
 });
 //Drawing
 animation();

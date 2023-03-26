@@ -1,7 +1,6 @@
 import { ctx, canvas } from "../globalContext.js";
-canvas.width = window.innerWidth-350;
-canvas.height = window.innerHeight-25;
-
+canvas.width = window.innerWidth - 350;
+canvas.height = window.innerHeight - 25;
 export class Fruit {
   constructor() {
     this.position = {
