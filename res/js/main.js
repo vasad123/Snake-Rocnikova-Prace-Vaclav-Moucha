@@ -20,6 +20,10 @@ let lastX = 0;
 let lastY = 0;
 let lastX2 = 0;
 let lastY2 = 0;
+let appleImg = new Image;
+appleImg.src = "./res/img/apple.png";
+let snakeHead = new Image;
+snakeHead.src ="./res/img/head.png";
 const Directions = {
   directionLeft: 1,
   directionRight: 2,
@@ -44,11 +48,12 @@ mybutton.onclick = () => {
   startMenuOff = true;
 };
 
-const fruit = new Fruit();
-const player = new myPlayer();
+const fruit = new Fruit(appleImg);
+const player = new myPlayer(snakeHead);
 const score = new Score();
 const death = new deathScreen();
 const tail = new Tail();
+
 const keys = {
   right: {
     pressed: false,

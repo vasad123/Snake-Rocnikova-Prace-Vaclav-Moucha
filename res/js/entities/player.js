@@ -2,7 +2,7 @@ import { ctx } from "../globalContext.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
 export class myPlayer {
-  constructor() {
+  constructor(snakeHead) {
     this.position = {
       x: canvas.width / 2,
       y: canvas.height / 2,
@@ -11,6 +11,7 @@ export class myPlayer {
     this.height = 60;
     this.speed = 5;
     this.tails = [];
+    this.snakeHead = snakeHead;
   }
 
   addPosition(x, y) {
@@ -20,7 +21,7 @@ export class myPlayer {
 
   draw() {
     ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(this.snakeHead,this.position.x, this.position.y, this.width, this.height);
     this.tails.forEach((element) => {
       element.update();
     });
