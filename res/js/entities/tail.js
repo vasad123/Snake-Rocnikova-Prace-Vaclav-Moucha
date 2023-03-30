@@ -1,21 +1,26 @@
 import { ctx } from "../globalContext.js";
-import { myPlayer } from "./player.js";
-canvas.width = window.innerWidth-350;
-canvas.height = window.innerHeight-25;
+canvas.width = window.innerWidth - 350;
+canvas.height = window.innerHeight - 25;
 
 export class Tail {
-  constructor(x,y) {
+  constructor(x, y, tailImg) {
     this.position = {
       x: x,
-      y: y
+      y: y,
     };
 
     this.width = 60;
     this.height = 60;
+    this.tailImg = tailImg;
   }
   draw() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(
+      this.tailImg,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
   update() {
     this.draw();
