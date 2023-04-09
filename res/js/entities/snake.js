@@ -20,7 +20,13 @@ export class mySnake {
   }
 
   draw() {
-    ctx.drawImage(this.snakeHead,this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(
+      this.snakeHead,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
     this.tails.forEach((element) => {
       element.update();
     });

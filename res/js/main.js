@@ -11,6 +11,7 @@ import { mySnake } from "./entities/snake.js";
 import { Fruit } from "./entities/fruit.js";
 import { deathScreen } from "./death.js";
 import { Tail } from "./entities/tail.js";
+import { goldenFruit } from "./entities/goldenApple.js";
 canvas.width = window.innerWidth - 350;
 canvas.height = window.innerHeight - 25;
 let startMenuOff = false;
@@ -20,12 +21,15 @@ let lastX = 0;
 let lastY = 0;
 let lastX2 = 0;
 let lastY2 = 0;
+let chance = Math.floor(Math.random() * 10);
 let appleImg = new Image();
 appleImg.src = "./res/img/apple.png";
 let snakeHead = new Image();
 snakeHead.src = "./res/img/head.png";
 let tailImg = new Image();
 tailImg.src = "./res/img/tail.png";
+let goldenImg = new Image();
+goldenImg.src = "./res/img/golden.png";
 const Directions = {
   directionLeft: 1,
   directionRight: 2,
@@ -55,7 +59,7 @@ const snake = new mySnake(snakeHead);
 const score = new Score();
 const death = new deathScreen();
 const tail = new Tail(tailImg);
-
+const golden = new goldenFruit(goldenImg);
 const keys = {
   right: {
     pressed: false,
@@ -152,8 +156,7 @@ function collisionWithMap() {
 function deahtInNormalGame() {
   // death is easier mode
   for (let a = 0; a < snake.tails.length; a++) {
-    if (a >= 2
-      ) {
+    if (a >= 1) {
       if (
         snake.position.x + snake.width >= snake.tails[a].position.x &&
         snake.position.x <= snake.tails[a].position.x + tail.width &&
@@ -169,12 +172,32 @@ function deahtInNormalGame() {
 }
 //Collision between snake and fruit
 function collision() {
+  if (chance == 5) {
+    if (
+      snake.position.x + snake.width >= golden.position.x &&
+      snake.position.x <= golden.position.x + golden.width &&
+      snake.position.y + snake.height >= golden.position.y &&
+      snake.position.y <= golden.position.y + golden.height
+    ) {
+      chance = Math.floor(Math.random() * 10);
+      golden.position.x = Math.random() * (canvas.width - fruit.height);
+      golden.position.y = Math.random() * (canvas.height - fruit.height);
+      score.points += 300;
+
+      snake.tails.push(new Tail(-1500, -1500, tailImg));
+      if (harderMode == true) {
+        snake.speed += 0.1;
+      }
+      console.log("goldenApple");
+    }
+  }
   if (
     snake.position.x + snake.width >= fruit.position.x &&
     snake.position.x <= fruit.position.x + fruit.width &&
     snake.position.y + snake.height >= fruit.position.y &&
     snake.position.y <= fruit.position.y + fruit.height
   ) {
+    chance = Math.floor(Math.random() * 10);
     fruit.position.x = Math.random() * (canvas.width - fruit.height);
     fruit.position.y = Math.random() * (canvas.height - fruit.height);
     fruit.update();
@@ -222,7 +245,7 @@ function renderingTails() {
           snake.tails[a - 1].position.y &&
         snake.tails[a].position.y <= snake.tails[a - 1].position.y + tail.height
       ) {
-        console.log("in collision");
+        //  console.log("in collision");
       } else {
         lastX2 = snake.tails[a].position.x;
         lastY2 = snake.tails[a].position.y;
@@ -233,13 +256,13 @@ function renderingTails() {
         lastY = lastY2;
         snake.update();
       }
-      console.log(lastX);
-      console.log(lastY)
+      //console.log(lastX);
+      //console.log(lastY);
     }
 
     snake.update();
   }
-  console.log("end of the loop");
+  //console.log("end of the loop");
 }
 //Gameloop
 function animation() {
@@ -247,7 +270,11 @@ function animation() {
     requestAnimationFrame(animation);
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clears canvas everytime
     snake.update();
-    fruit.update();
+    if (chance == 5) {
+      golden.update();
+    } else {
+      fruit.update();
+    }
     score.update();
     renderingTails();
     movement();
@@ -259,6 +286,7 @@ function animation() {
       runningGame == false;
     }
     collision();
+    console.log(chance);
   }
 }
 //Keys for game
