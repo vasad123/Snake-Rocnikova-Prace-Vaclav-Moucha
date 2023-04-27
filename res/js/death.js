@@ -16,6 +16,7 @@ export class deathScreen {
       this.position.x - 100,
       this.position.y + 75
     );
+    
   }
   update() {
     this.draw();

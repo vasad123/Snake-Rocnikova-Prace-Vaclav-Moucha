@@ -87,7 +87,7 @@ function Death() {
     death.update();
   }
   for (let a = 0; a < snake.tails.length; a++) {
-    if (a >= 2) {
+    if (a >= 3) {
       if (
         snake.position.x + snake.width >= snake.tails[a].position.x &&
         snake.position.x <= snake.tails[a].position.x + tail.width &&
@@ -154,7 +154,7 @@ function collisionWithMap() {
   }
 }
 function deahtInNormalGame() {
-  // death is easier mode
+  // death in easier mode
   for (let a = 0; a < snake.tails.length; a++) {
     if (a >= 1) {
       if (
@@ -246,7 +246,8 @@ function renderingTails() {
         snake.tails[a].position.y <= snake.tails[a - 1].position.y + tail.height
       ) {
         //  console.log("in collision");
-      } else {
+      }
+      else {
         lastX2 = snake.tails[a].position.x;
         lastY2 = snake.tails[a].position.y;
 
